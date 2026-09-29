@@ -4,136 +4,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>블로그 공정위 문구 신고는 페어블로그 | xpile98 프로젝트</title>
-  <meta name="description" content="블로그 콘텐츠에서 공정위 문구 존재 여부를 분석하는 검사기입니다. 이미지 분석과 OCR 기술을 활용하여 정책 위반 여부를 판단합니다.">
+  <title>xpile98 — 개인 프로젝트 모음</title>
+  <meta name="description" content="xpile98이 만든 웹 프로젝트 모음. 페어블로그, 수학·통계 노트, Minimal Issue Tracker 등.">
 
-  <!-- 오픈 그래프 -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="블로그 공정위 문구 신고는 페어블로그">
-  <meta property="og:description" content="블로그 공정위 문구 신고를 위한 간편한 해결책. 블로그 ID만 있으면 조회 가능">
-  <meta property="og:image" content="https://xpile98.github.io/FairBlog/favicon.png"> <!-- 예시 이미지 경로 -->
-  <meta property="og:url" content="https://xpile98.github.io/FairBlog">
+  <meta property="og:title" content="xpile98 — 개인 프로젝트 모음">
+  <meta property="og:description" content="xpile98이 만든 웹 프로젝트 모음">
+  <meta property="og:url" content="https://xpile98.github.io">
 
-  <!-- 트위터 카드 -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="블로그 공정위 문구 신고는 페어블로그">
-  <meta name="twitter:description" content="블로그 공정위 문구 신고를 위한 간편한 해결책. 블로그 ID만 있으면 조회 가능">
-  <meta name="twitter:image" content="https://xpile98.github.io/FairBlog/favicon.png">
-  <meta name="twitter:domain" content="xpile98.github.io">
+  <link rel="stylesheet" href="assets/ds/tokens.css">
+  <style>
+    body { background: var(--background-normal); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--margin-content); }
 
-  <script src="https://cdn.tailwindcss.com"></script>
+    /* ---- Nav ---- */
+    .nav { padding: var(--space-32) 0 var(--space-64); display: flex; align-items: center; justify-content: space-between; }
+    .nav__name { font-family: var(--font-display); font-weight: var(--weight-bold); font-size: 16px; color: var(--label-strong); }
+    .nav__links { display: flex; gap: var(--space-24); }
+    .nav__links a { font-size: var(--body-2-size); color: var(--label-alternative); }
+    .nav__links a:hover { color: var(--label-normal); }
+
+    /* ---- Intro (minimal) ---- */
+    .intro { padding-bottom: var(--space-64); }
+    .intro h1 {
+      font-family: var(--font-body); font-weight: var(--weight-bold);
+      font-size: var(--title-1-size); line-height: 1.4; letter-spacing: var(--title-1-spacing);
+      color: var(--label-strong); margin-bottom: var(--space-16);
+    }
+    .intro p { color: var(--label-alternative); font-size: var(--body-1-size); line-height: var(--body-1-reading-line); max-width: 480px; }
+    .intro__meta { margin-top: var(--space-24); display: flex; gap: var(--space-16); font-size: var(--label-2-size); color: var(--label-assistive); }
+    .intro__meta a { color: var(--label-alternative); }
+    .intro__meta a:hover { color: var(--primary-normal); }
+
+    /* ---- Section ---- */
+    .section-label {
+      font-size: var(--caption-1-size); font-weight: var(--weight-semibold); color: var(--label-assistive);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-20);
+    }
+
+    /* ---- Project list (minimal, no cards) ---- */
+    .project-list { border-top: 1px solid var(--line-alternative); margin-bottom: var(--space-80); }
+    .project-item {
+      display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-24);
+      padding: var(--space-24) 0; border-bottom: 1px solid var(--line-alternative);
+    }
+    .project-item__main { flex: 1; }
+    .project-item__title-row { display: flex; align-items: center; gap: var(--space-10); margin-bottom: var(--space-6); }
+    .project-item h3 { font-family: var(--font-body); font-weight: var(--weight-bold); font-size: var(--heading-2-size); color: var(--label-strong); }
+    .project-item p { color: var(--label-alternative); font-size: var(--body-2-size); line-height: var(--body-2-reading-line); max-width: 460px; }
+    .project-item__link {
+      flex-shrink: 0; font-size: var(--label-1-size); color: var(--label-alternative); font-weight: var(--weight-medium);
+      white-space: nowrap;
+    }
+    .project-item:hover .project-item__link { color: var(--primary-normal); }
+    .project-item:hover h3 { color: var(--primary-normal); }
+    .project-item h3, .project-item__link { transition: color var(--duration-fast) var(--ease-standard); }
+
+    footer { padding: var(--space-32) 0 var(--space-64); color: var(--label-assistive); font-size: var(--caption-1-size); }
+
+    @media (max-width: 640px) {
+      .nav__links { gap: var(--space-16); }
+      .project-item { flex-direction: column; gap: var(--space-4); }
+    }
+  </style>
 </head>
 
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <span class="nav__name">xpile98</span>
+      <div class="nav__links">
+        <a href="math-notes/">수학 노트</a>
+        <a href="https://github.com/xpile98" target="_blank">GitHub</a>
+      </div>
+    </nav>
 
-<body class="bg-gray-50 text-gray-900">
-  <div class="max-w-6xl mx-auto px-4 py-10">
-
-    <!-- 메인 강조 영역 (좌: 이미지, 우: 설명/링크) -->
-    <!-- 제목 -->
-    <header class="text-center mb-12">
-      <h1 class="text-4xl lg:text-5xl font-extrabold text-blue-900">
-        🔍 블로그 공정위 문구 신고는 페어블로그
-      </h1>
-      <p class="mt-4 text-gray-700 text-lg">
-        블로그 콘텐츠 내 공정위 문구 노출 여부를 자동으로 분석합니다.
-      </p>
-    </header>
-
-    <!-- 메인 강조 영역 -->
-    <section
-      class="bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200 rounded-3xl px-8 py-12 mb-16 shadow-xl">
-      <div class="flex flex-col lg:flex-row items-center gap-10">
-
-        <!-- 왼쪽: 이미지 -->
-        <div class="w-full lg:w-2/5">
-          <a href="https://xpile98.github.io/FairBlog" target="_blank">
-            <img src="img/fairblog1.png" alt="공정위 이미지 도메인 목록"
-              class="rounded-2xl w-full shadow-md border border-blue-300 hover:opacity-80 transition">
-          </a>
-        </div>
-
-        <!-- 오른쪽: 소개 + 기능 + 버튼 -->
-        <div class="w-full lg:w-3/5 text-gray-800">
-
-          <!-- 소개 -->
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-blue-800 mb-3">소개</h2>
-            <p class="text-base leading-relaxed">
-              <strong>페어블로그</strong>는 <span class="text-blue-700 font-semibold">네이버 블로그 전용</span> 공정위 문구 검사기입니다.<br />
-              체험단 홍보글의 이미지와 텍스트를 자동으로 분석하여,<br />
-              공정위 표시·광고 심사지침에 따라 <strong>정책 위반 여부를 판단</strong>해줍니다.<br />
-              복잡한 광고 문구 검사를 누구나 쉽게, 빠르게 수행할 수 있도록 도와드립니다.
-            </p>
-          </div>
-
-          <!-- 기능 -->
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-blue-800 mb-3">주요 기능</h2>
-            <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside">
-              <li><strong>도메인 기반 이미지 분석</strong>: 공정위 도메인 목록을 바탕으로 이미지 내 정책 문구 감지</li>
-              <li><strong>텍스트 문구 검사</strong>: 블로그 글의 제목과 본문에서 광고 문구 여부 판단</li>
-              <li><strong>OCR 이미지 인식</strong>: 이미지에 포함된 문구까지 자동 인식해 추가 검증</li>
-              <li><strong>정책 분류 태그</strong>: 정책 지킴, 위반, 내돈내산, 불분명 등으로 자동 분류</li>
-              <li><strong>요약 보고서 생성</strong>: 검출 결과를 TXT 파일로 저장하거나 복사 가능</li>
-              <li><strong>연속 페이지 분석</strong>: 1~20페이지까지 다중 포스트 자동 검사 지원</li>
-            </ul>
-          </div>
-
-          <!-- 버튼 -->
-          <a href="https://xpile98.github.io/FairBlog" target="_blank"
-            class="inline-block bg-blue-700 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-800 text-sm font-semibold transition">
-            🔗 검사기 사용하기
-          </a>
-
-        </div>
+    <section class="intro">
+      <h1>필요하다고 느낀 걸 직접 만들어봅니다.</h1>
+      <p>블로그 자동검사기부터 금융 계산기, 이슈 트래커까지 — 개인적으로 쓰려고 만든 것들을 모아뒀습니다.</p>
+      <div class="intro__meta">
+        <span>서울</span>
+        <a href="https://github.com/xpile98" target="_blank">github.com/xpile98</a>
       </div>
     </section>
 
-    <!-- 프로젝트 리스트 -->
-    <header class="mb-10">
-      <h1 class="text-4xl font-bold mb-2">📘 xpile98 GitHub Projects</h1>
-      <p class="text-gray-600">직접 만든 웹 프로젝트들을 소개합니다.</p>
-    </header>
+    <div class="section-label">Projects</div>
+    <div class="project-list">
+      <a class="project-item" href="https://xpile98.github.io/FairBlog" target="_blank">
+        <div class="project-item__main">
+          <h3>페어블로그</h3>
+          <p>네이버 블로그 전용 공정위 문구 검사기. 이미지·텍스트·OCR을 분석해 광고 심사지침 위반 여부를 판단.</p>
+        </div>
+        <span class="project-item__link">열기 →</span>
+      </a>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-      <!-- 기존 Project 2 ~ 4로 내려가게 수정 -->
+      <a class="project-item" href="math-notes/">
+        <div class="project-item__main">
+          <h3>수학·통계 노트</h3>
+          <p>GPU 메모리 예측 시스템을 공부하며 정리한 최소제곱법·미분·통계 개념 노트. 개념끼리 서로 링크돼 있음.</p>
+        </div>
+        <span class="project-item__link">보기 →</span>
+      </a>
 
-      <!-- Project 2: Minimal Issue Tracker -->
-      <div class="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
-        <h2 class="text-xl font-semibold mb-2">🛠️ Minimal Issue Tracker</h2>
-        <p class="text-sm text-gray-700 mb-3">
-          Material UI를 모티브로 한 미니멀한 이슈 관리 도구입니다. 로그인 및 간단한 DB 연동으로 실제 운영 가능한 구조를 가지고 있습니다.
-        </p>
-        <a href="https://xpile98.github.io/MinimalIssueTracker" target="_blank"
-          class="inline-block bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 text-sm">
-          🔗 프로젝트 열기
-        </a>
-      </div>
+      <a class="project-item" href="https://xpile98.github.io/MinimalIssueTracker" target="_blank">
+        <div class="project-item__main">
+          <h3>Minimal Issue Tracker</h3>
+          <p>Material UI를 모티브로 한 미니멀한 이슈 관리 도구. 로그인 및 DB 연동으로 실제 운영 가능.</p>
+        </div>
+        <span class="project-item__link">열기 →</span>
+      </a>
 
-      <!-- Project 3: Financial Tools Website -->
-      <div class="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
-        <h2 class="text-xl font-semibold mb-2">💰 Financial Tools Website</h2>
-        <p class="text-sm text-gray-700 mb-3">
-          연평균 수익률, 복리, 평단가, 대출 상환 등 다양한 금융 계산기를 제공합니다. 경제 위기 시기 그래프도 포함되어 있습니다.
-        </p>
-        <a href="https://xpile98.github.io/financial-tools-website" target="_blank"
-          class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
-          🔗 프로젝트 열기
-        </a>
-      </div>
+      <a class="project-item" href="https://xpile98.github.io/financial-tools-website" target="_blank">
+        <div class="project-item__main">
+          <h3>Financial Tools Website</h3>
+          <p>연평균 수익률, 복리, 평단가, 대출 상환 등 다양한 금융 계산기.</p>
+        </div>
+        <span class="project-item__link">열기 →</span>
+      </a>
 
-      <!-- Project 4: MyMemo -->
-      <div class="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
-        <h2 class="text-xl font-semibold mb-2">📝 MyMemo</h2>
-        <p class="text-sm text-gray-700 mb-3">
-          무한 캔버스 위에서 더블클릭으로 메모를 추가할 수 있으며, 텍스트·이미지 입력, 색상 및 크기 조절 기능도 지원합니다.
-        </p>
-        <a href="https://xpile98.github.io/MyMemo" target="_blank"
-          class="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm">
-          🔗 프로젝트 열기
-        </a>
-      </div>
+      <a class="project-item" href="https://xpile98.github.io/MyMemo" target="_blank">
+        <div class="project-item__main">
+          <h3>MyMemo</h3>
+          <p>무한 캔버스 위에서 더블클릭으로 메모 추가. 텍스트·이미지·색상 조절 지원.</p>
+        </div>
+        <span class="project-item__link">열기 →</span>
+      </a>
     </div>
+
+    <footer>xpile98.github.io</footer>
   </div>
 </body>
 

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>수학·통계 노트 | xpile98</title>
+  <meta name="description" content="GPU 메모리 예측 시스템을 공부하며 정리한 최소제곱법·미분·통계 개념 노트">
+
+  <link rel="stylesheet" href="../assets/ds/tokens.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    body { background: var(--background-normal-alternative); }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 var(--margin-content); }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: var(--space-20) 0; }
+    .nav__back { display: flex; align-items: center; gap: var(--space-8); color: var(--label-alternative); font-size: var(--body-2-size); font-weight: var(--weight-medium); }
+    .nav__back:hover { color: var(--primary-normal); }
+
+    .page-head { padding: var(--space-24) 0 var(--space-32); }
+    .page-head h1 { font-size: var(--display-3-size); line-height: var(--display-3-line); letter-spacing: var(--display-3-spacing); margin-bottom: var(--space-8); }
+    .page-head p { color: var(--label-alternative); font-size: var(--body-1-size); }
+    .page-head .updated { margin-top: var(--space-8); color: var(--label-assistive); font-size: var(--caption-1-size); }
+
+    /* category jump nav */
+    .toc {
+      display: flex; flex-wrap: wrap; gap: var(--space-8); margin-bottom: var(--space-48);
+      padding: var(--space-16); background: var(--background-elevated); border: 1px solid var(--line-neutral);
+      border-radius: var(--radius-16);
+    }
+    .toc__group { display: flex; flex-direction: column; gap: var(--space-6); flex: 1; min-width: 220px; }
+    .toc__group-label { font-size: var(--caption-1-size); color: var(--label-assistive); font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: 0.04em; }
+    .toc__link { font-size: var(--body-2-size); color: var(--label-neutral); padding: 2px 0; }
+    .toc__link:hover { color: var(--primary-normal); }
+
+    /* concept card */
+    .concept {
+      background: var(--background-elevated); border: 1px solid var(--line-neutral);
+      border-radius: var(--radius-16); padding: var(--space-32); margin-bottom: var(--space-24);
+      scroll-margin-top: var(--space-20);
+    }
+    .concept__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-12); margin-bottom: var(--space-8); }
+    .concept h2 { font-size: var(--title-3-size); line-height: var(--title-3-line); font-family: var(--font-body); font-weight: var(--weight-bold); }
+    .concept__summary { color: var(--label-alternative); font-size: var(--body-2-size); margin-bottom: var(--space-20); }
+
+    .concept__body p { font-size: var(--body-2-size); line-height: var(--body-2-reading-line); color: var(--label-neutral); margin: 0 0 var(--space-12); }
+
+    .prereqs { display: flex; flex-wrap: wrap; gap: var(--space-6); margin-bottom: var(--space-20); }
+    .prereqs span.label { font-size: var(--caption-1-size); color: var(--label-assistive); align-self: center; margin-right: 2px; }
+
+    .example-box, .formula-box {
+      background: var(--background-normal-alternative); border-radius: var(--radius-12);
+      padding: var(--space-16) var(--space-20); margin-top: var(--space-16);
+    }
+    .example-box__label { font-size: var(--label-2-size); font-weight: var(--weight-semibold); color: var(--label-alternative); margin-bottom: var(--space-10); }
+    .example-box table { width: 100%; border-collapse: collapse; font-size: var(--label-1-size); font-family: var(--font-mono); }
+    .example-box th, .example-box td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line-alternative); }
+    .example-box th { color: var(--label-alternative); font-weight: var(--weight-semibold); }
+    .example-box ol { margin: 0; padding-left: 18px; font-size: var(--label-1-size); font-family: var(--font-mono); color: var(--label-neutral); }
+    .example-box ol li { margin-bottom: 4px; }
+    .example-box__note { margin-top: var(--space-10); font-size: var(--caption-1-size); color: var(--label-assistive); }
+
+    .formula-box { text-align: center; overflow-x: auto; }
+    .formula-box__label { text-align: left; font-size: var(--label-2-size); font-weight: var(--weight-semibold); color: var(--label-alternative); margin-bottom: var(--space-8); }
+
+    footer { padding: var(--space-32) 0 var(--space-64); text-align: center; color: var(--label-assistive); font-size: var(--caption-1-size); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="../" class="nav__back">← xpile98</a>
+      <span class="ws-badge ws-badge--weak ws-badge--violet ws-badge--medium">Living Notebook</span>
+    </nav>
+
+    <div class="page-head">
+      <h1 id="page-title">수학·통계 노트</h1>
+      <p id="page-subtitle"></p>
+      <div class="updated" id="page-updated"></div>
+    </div>
+
+    <div class="toc" id="toc"></div>
+
+    <div id="concepts"></div>
+
+    <footer>xpile98.github.io/math-notes — 배울 때마다 카드가 늘어남</footer>
+  </div>
+
+  <script>
+    fetch('concepts.json')
+      .then(r => r.json())
+      .then(data => render(data))
+      .catch(err => {
+        document.getElementById('concepts').innerHTML =
+          '<p style="color:var(--label-alternative)">concepts.json을 못 불러옴: ' + err + '</p>';
+      });
+
+    function render(data) {
+      document.getElementById('page-title').textContent = data.meta.title;
+      document.getElementById('page-subtitle').textContent = data.meta.subtitle;
+      document.getElementById('page-updated').textContent = '마지막 업데이트 ' + data.meta.updated;
+
+      const byId = {};
+      data.concepts.forEach(c => byId[c.id] = c);
+
+      // group by category, preserving first-seen order
+      const groups = [];
+      const groupMap = {};
+      data.concepts.forEach(c => {
+        if (!groupMap[c.category]) {
+          groupMap[c.category] = { label: c.category, items: [] };
+          groups.push(groupMap[c.category]);
+        }
+        groupMap[c.category].items.push(c);
+      });
+
+      const tocEl = document.getElementById('toc');
+      tocEl.innerHTML = groups.map(g => `
+        <div class="toc__group">
+          <div class="toc__group-label">${g.label}</div>
+          ${g.items.map(c => `<a class="toc__link" href="#${c.id}">${c.title}</a>`).join('')}
+        </div>
+      `).join('');
+
+      const catBadge = { '기초수학': 'primary', 'GPU 메모리 시스템': 'violet' };
+
+      const conceptsEl = document.getElementById('concepts');
+      conceptsEl.innerHTML = data.concepts.map(c => {
+        const prereqChips = (c.prereqs || []).map(pid => {
+          const p = byId[pid];
+          return p ? `<a class="ws-tag ws-tag--small" href="#${pid}">${p.title}</a>` : '';
+        }).join('');
+
+        const bodyHtml = (c.body || []).map(t => `<p>${t}</p>`).join('');
+
+        let exampleHtml = '';
+        if (c.example) {
+          exampleHtml = `<div class="example-box"><div class="example-box__label">${c.example.label || '예시'}</div>`;
+          if (c.example.table) {
+            exampleHtml += '<table><thead><tr>' +
+              c.example.table.headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+              c.example.table.rows.map(r => '<tr>' + r.map(v => `<td>${v}</td>`).join('') + '</tr>').join('') +
+              '</tbody></table>';
+          }
+          if (c.example.steps) {
+            exampleHtml += '<ol>' + c.example.steps.map(s => `<li>${s}</li>`).join('') + '</ol>';
+          }
+          if (c.example.note) {
+            exampleHtml += `<div class="example-box__note">${c.example.note}</div>`;
+          }
+          exampleHtml += '</div>';
+        }
+
+        const formulaHtml = c.formula
+          ? `<div class="formula-box"><div class="formula-box__label">공식</div>\\[${c.formula}\\]</div>`
+          : '';
+
+        return `
+          <section class="concept" id="${c.id}">
+            <div class="concept__head">
+              <h2>${c.title}</h2>
+              <span class="ws-badge ws-badge--weak ws-badge--${catBadge[c.category] || 'neutral'} ws-badge--small">${c.category}</span>
+            </div>
+            <div class="concept__summary">${c.summary}</div>
+            ${prereqChips ? `<div class="prereqs"><span class="label">선행개념</span>${prereqChips}</div>` : ''}
+            <div class="concept__body">${bodyHtml}</div>
+            ${exampleHtml}
+            ${formulaHtml}
+          </section>
+        `;
+      }).join('');
+
+      if (window.renderMathInElement) {
+        renderMathInElement(conceptsEl, {
+          delimiters: [{ left: '\\[', right: '\\]', display: true }]
+        });
+      } else {
+        window.addEventListener('load', () => {
+          renderMathInElement(conceptsEl, { delimiters: [{ left: '\\[', right: '\\]', display: true }] });
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
